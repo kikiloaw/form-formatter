@@ -1,0 +1,60 @@
+{
+  "name": "form-formatter",
+  "version": "1.0.1",
+  "description": "A comprehensive Vue 3 form formatter component with multiple field types and responsive design",
+  "main": "dist/form-formatter.umd.js",
+  "module": "dist/form-formatter.mjs",
+  "types": "dist/form-formatter.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/form-formatter.mjs",
+      "require": "./dist/form-formatter.umd.js"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:package": "node scripts/build.js",
+    "preview": "vite preview",
+    "prepublishOnly": "npm run build:package"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "form",
+    "formatter",
+    "component",
+    "form-builder",
+    "dynamic-forms",
+    "responsive-forms",
+    "vue-component",
+    "form-fields",
+    "input-fields",
+    "form-validation"
+  ],
+  "author": "Ghandi Galila, Abdul Pangandaman",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/form-formatter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/form-formatter/issues"
+  },
+  "homepage": "https://github.com/yourusername/form-formatter#readme",
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.0",
+    "vite": "^5.4.14"
+  },
+  "dependencies": {
+    "fahad-select": "latest"
+  }
+}
