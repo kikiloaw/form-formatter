@@ -1,6 +1,6 @@
 {
   "name": "form-formatter",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A comprehensive Vue 3 form formatter component with multiple field types and responsive design",
   "main": "dist/form-formatter.umd.js",
   "module": "dist/form-formatter.mjs",
@@ -37,7 +37,7 @@
     "input-fields",
     "form-validation"
   ],
-  "author": "Ghandi Galila, Abdul Pangandaman",
+  "author": "Ghandi Galila",
   "license": "MIT",
   "repository": {
     "type": "git",
