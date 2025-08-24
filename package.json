@@ -1,6 +1,6 @@
 {
   "name": "form-formatter",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A comprehensive Vue 3 form formatter component with multiple field types and responsive design",
   "main": "dist/form-formatter.umd.js",
   "module": "dist/form-formatter.mjs",
@@ -41,12 +41,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/form-formatter.git"
+    "url": "https://github.com/kikiloaw/form-formatter.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/form-formatter/issues"
+    "url": "https://github.com/kikiloaw/form-formatter/issues"
   },
-  "homepage": "https://github.com/yourusername/form-formatter#readme",
+  "homepage": "https://github.com/kikiloaw/form-formatter#readme",
   "peerDependencies": {
     "vue": "^3.0.0"
   },

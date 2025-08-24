@@ -16,7 +16,7 @@ A comprehensive Vue 3 form formatter component that provides a dynamic and respo
 ## Installation
 
 ```bash
-npm install form-formatter
+npm install form-formatter@latest
 ```
 
 ## Usage
