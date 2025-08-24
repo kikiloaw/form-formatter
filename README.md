@@ -25,13 +25,36 @@ npm install form-formatter@latest
 
 ```vue
 <template>
-  <FormInput
-    :sampledata="sampledata"
-    :form="form"
-    :parameters="parameters"
-    @selectRefsReady="storeSelectRefs"
-    @triggerCallback="executeCallback"
-  />
+<!--  single column form. see the results-->
+  <div class="grid grid-cols-1 gap-5.5 p-6.5 grid-auto-rows-[minmax(100px,_auto)]">
+      <FormInput
+        :sampledata="sampledata"
+        :form="form"
+        :parameters="parameters"
+        @selectRefsReady="storeSelectRefs"
+        @triggerCallback="executeCallback"
+      />
+  </div>
+  <!--  double column form. see the results-->
+  <div class="grid grid-cols-2 gap-5.5 p-6.5 grid-auto-rows-[minmax(100px,_auto)]">
+    <FormInput
+        :sampledata="sampledata"
+        :form="form"
+        :parameters="parameters"
+        @selectRefsReady="storeSelectRefs"
+        @triggerCallback="executeCallback"
+    />
+
+    <!--  double column form. see the results-->
+    <div class="grid grid-cols-3 gap-5.5 p-6.5 grid-auto-rows-[minmax(100px,_auto)]">
+      <FormInput
+          :sampledata="sampledata"
+          :form="form"
+          :parameters="parameters"
+          @selectRefsReady="storeSelectRefs"
+          @triggerCallback="executeCallback"
+      />
+  </div>
 </template>
 
 <script setup>
