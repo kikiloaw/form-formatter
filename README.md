@@ -19,7 +19,165 @@ A comprehensive Vue 3 form formatter component that provides a dynamic and respo
 npm install form-formatter@latest
 ```
 
+## What's New in v1.0.6 (January 5, 2026)
+
+### 🎯 Enhanced Checkbox & Checkbox Group Features
+
+Version 1.0.6 introduces powerful new capabilities for checkbox handling:
+
+#### **1. Automatic Single-Select for `checkbox-group`**
+- `checkbox-group` now defaults to **single-selection mode** (like radio buttons)
+- No need to add `exclusive: true` - it's automatic!
+- Perfect for "select one option" scenarios
+
+#### **2. Individual Model Support**
+- Each checkbox option can have its own boolean model
+- Simplifies programmatic control with `true`/`false` values
+- No more array manipulation needed
+
+#### **3. Per-Option Colors**
+- Each checkbox can have its own color theme
+- Mix and match colors within the same group
+
+#### **4. Flexible Multi-Select**
+- `checkbox` (inline) remains multi-select by default
+- Set `exclusive: false` on `checkbox-group` for multi-select mode
+
+#### **5. Smart Multi-Select Radio**
+- Want Multi-Select Radios? Just use `type: 'radio'` with individual models!
+- Automatically enables multi-select and unchecking while keeping the round radio look
+
+---
+
 ## Usage
+
+### Checkbox Usage Examples (v1.0.6+)
+
+#### **Mode 1: Single-Select Checkbox Group (Default)**
+Perfect for "choose one" scenarios with checkbox UI:
+
+```javascript
+// Configuration
+{
+    type: 'checkbox-group',
+    label: 'Student Year',
+    model: 'student_year',
+    options: [
+        { value: '1', text: 'Freshman', color: 'green' },
+        { value: '2', text: 'Sophomore', color: 'blue' },
+        { value: '3', text: 'Junior', color: 'yellow' },
+        { value: '4', text: 'Senior', color: 'purple' }
+    ]
+}
+
+// Form Data
+const formData = ref({
+    student_year: []  // Will contain single value: ['2']
+});
+
+// Programmatic Control
+formData.value.student_year = ['3'];  // Select Junior
+```
+
+#### **Mode 2: Multi-Select Checkbox (Inline)**
+For selecting multiple options:
+
+```javascript
+// Configuration
+{
+    type: 'checkbox',
+    label: 'Required Documents',
+    model: 'documents',
+    options: [
+        { value: 'Form 138', text: 'Form 138', color: 'green' },
+        { value: 'Form 137', text: 'Form 137', color: 'blue' },
+        { value: 'PSA', text: 'PSA Birth Certificate', color: 'yellow' }
+    ]
+}
+
+// Form Data
+const formData = ref({
+    documents: []  // Can contain multiple: ['Form 138', 'PSA']
+});
+
+// Programmatic Control
+formData.value.documents = ['Form 138', 'PSA'];  // Select multiple
+formData.value.documents.push('Form 137');       // Add one more
+```
+
+#### **Mode 3: Individual Boolean Models**
+Best for independent checkboxes with simple true/false control:
+
+```javascript
+// Configuration
+{
+    type: 'checkbox',
+    label: 'Requirements Checklist',
+    options: [
+        { model: 'has_form138', text: 'Form 138', color: 'green' },
+        { model: 'has_form137', text: 'Form 137', color: 'blue' },
+        { model: 'has_psa', text: 'PSA Birth Certificate', color: 'yellow' }
+    ]
+}
+
+// Form Data
+const formData = ref({
+    has_form138: false,
+    has_form137: false,
+    has_psa: false
+});
+
+// Programmatic Control (Simple!)
+formData.value.has_form138 = true;   // Check Form 138
+formData.value.has_psa = true;       // Check PSA
+formData.value.has_form137 = false;  // Uncheck Form 137
+
+// Toggle
+formData.value.has_form138 = !formData.value.has_form138;
+```
+
+#### **Mode 4: Multi-Select Checkbox Group**
+Enable multi-select for checkbox-group:
+
+```javascript
+{
+    type: 'checkbox-group',
+    label: 'Interests',
+    model: 'interests',
+    exclusive: false,  // Enable multi-select
+    options: [
+        { value: 'sports', text: 'Sports', color: 'green' },
+        { value: 'music', text: 'Music', color: 'purple' },
+        { value: 'reading', text: 'Reading', color: 'blue' }
+    ]
+}
+```
+
+#### **Mode 5: Smart Multi-Select Radio**
+Want the **look of Radio Buttons** (circles) but need **Multi-Select** behavior? 
+Simply use `type: 'radio'` with individual models. The component will automatically enable multi-select and unchecking capability while maintaining the round radio appearance.
+
+```javascript
+// Configuration
+{
+    type: 'radio',          // Looks like Radio (Round)
+    label: 'Freshmen Requirements',
+    options: [
+        { model: 'f138', text: 'Form 138', color: 'red' },    // Selectable
+        { model: 'f137', text: 'Form 137', color: 'green' },  // Selectable (Multi-Select!)
+        { model: 'psa', text: 'PSA', color: 'yellow' }        // Selectable
+    ]
+}
+
+// Form Data - All independent booleans!
+const formData = ref({
+    f138: true,   // Checked
+    f137: true,   // Checked
+    psa: false
+});
+```
+
+---
 
 ### Basic Usage
 
@@ -91,28 +249,28 @@ const executeCallback = (callbackName) => {
 const sampledata = ref([
     { type: 'hidden', model: 'id', required: false },
 
-    { type: 'checkbox-group', label: 'for checkbox group', placeholder: 'default', model: 'checkboxGroup1', color:'teal', required: false,  callback: 'checkboxGroupCallback',
+    { type: 'checkbox-group', label: 'for checkbox group', placeholder: 'default', model: 'checkboxGroup1', required: false,  callback: 'checkboxGroupCallback',
         options: [
-            { value: '1', text: 'Option 1 with long text description' },
-            { value: '2', text: 'Option 2 with long text description' },
-            { value: '3', text: 'Option 3 with long text description' },
-            { value: '4', text: 'Option 4 with long text description' },
-            { value: '5', text: 'Option 5 with long text description' },
-            { value: '6', text: 'Option 6 with long text description' },
-            { value: '7', text: 'Option 7 with long text description' },
+            { value: '1', text: 'Option 1 with long text description', color: 'teal' },
+            { value: '2', text: 'Option 2 with long text description', color: 'teal' },
+            { value: '3', text: 'Option 3 with long text description', color: 'teal' },
+            { value: '4', text: 'Option 4 with long text description', color: 'teal' },
+            { value: '5', text: 'Option 5 with long text description', color: 'teal' },
+            { value: '6', text: 'Option 6 with long text description', color: 'teal' },
+            { value: '7', text: 'Option 7 with long text description', color: 'teal' },
         ]
     },
 
     [
-        { type: 'checkbox-group', label: 'for checkbox group', placeholder: 'default', model: 'checkboxGroup2', color:'yellow', required: false,  callback: 'checkboxGroupCallback',
+        { type: 'checkbox-group', label: 'for checkbox group', placeholder: 'default', model: 'checkboxGroup2', required: false,  callback: 'checkboxGroupCallback',
             options: [
-                { value: '1', text: 'Option 1 with long text description' },
-                { value: '2', text: 'Option 2 with long text description' },
-                { value: '3', text: 'Option 3 with long text description' },
-                { value: '4', text: 'Option 4 with long text description' },
-                { value: '5', text: 'Option 5 with long text description' },
-                { value: '6', text: 'Option 6 with long text description' },
-                { value: '7', text: 'Option 7 with long text description' },
+                { value: '1', text: 'Option 1 with long text description', color: 'yellow' },
+                { value: '2', text: 'Option 2 with long text description', color: 'yellow' },
+                { value: '3', text: 'Option 3 with long text description', color: 'yellow' },
+                { value: '4', text: 'Option 4 with long text description', color: 'yellow' },
+                { value: '5', text: 'Option 5 with long text description', color: 'yellow' },
+                { value: '6', text: 'Option 6 with long text description', color: 'yellow' },
+                { value: '7', text: 'Option 7 with long text description', color: 'yellow' },
             ]
         },
 
@@ -122,22 +280,22 @@ const sampledata = ref([
 
     { type: 'checkbox', label: 'for checkbox', placeholder: 'default', model: 'checkbox1', required: false,  callback: 'checkboxCallback',
         options: [
-            { value: '1', text: 'Option 1 with long text description' },
-            { value: '2', text: 'Option 2 with long text description' },
+            { value: '1', text: 'Option 1 with long text description', color: 'green' },
+            { value: '2', text: 'Option 2 with long text description', color: 'blue' },
         ]
     },
 
     [
-        { type: 'checkbox', label: 'for checkbox', placeholder: 'default', model: 'checkbox2', color:'red', required: false,  callback: 'checkboxCallback',
+        { type: 'checkbox', label: 'for checkbox', placeholder: 'default', model: 'checkbox2', required: false,  callback: 'checkboxCallback',
             options: [
-                { value: '1', text: 'Option 1 with long text description' },
-                { value: '2', text: 'Option 2 with long text description' },
+                { value: '1', text: 'Option 1 with long text description', color: 'red' },
+                { value: '2', text: 'Option 2 with long text description', color: 'red' },
             ]
         },
         { type: 'checkbox', label: 'for checkbox', placeholder: 'default', model: 'checkbox3', required: false,  callback: 'checkboxCallback',
             options: [
-                { value: '1', text: 'Option 1 with long text description' },
-                { value: '2', text: 'Option 2 with long text description' },
+                { value: '1', text: 'Option 1 with long text description', color: 'orange' },
+                { value: '2', text: 'Option 2 with long text description', color: 'purple' },
             ]
         },
     ],
@@ -156,10 +314,10 @@ const sampledata = ref([
             callback: 'radioGroupCallback',
             color:'purple',
             options: [
-                { value: 'option1', text: 'Option 1 with long text description' },
+                { value: 'option1', text: 'Option 1 with long text description', color: 'teal' }, // Override parent color
                 { value: 'option2', text: 'Option 2 with long text description' },
-                { value: 1, text: 'Yes' },
-                { value: 0, text: 'No' }
+                { value: 1, text: 'Yes', color: 'green' },
+                { value: 0, text: 'No', color: 'red' }
             ]
         },
 
@@ -216,9 +374,9 @@ const sampledata = ref([
             label: 'Radio Option 2',
             required: true,
             options: [
-                { value: 'option1', text: 'Option 1 with long text description' },
-                { value: 'option2', text: 'Option 2 with long text description' },
-                { value: 1, text: 'Custom Option' },
+                { value: 'option1', text: 'Option 1 with long text description', color: 'purple' },
+                { value: 'option2', text: 'Option 2 with long text description', color: 'orange' },
+                { value: 1, text: 'Custom Option', color: 'teal' },
                 { value: 0, text: 'No' },
             ]
         },
@@ -355,6 +513,23 @@ const sampledata = ref([
     { type: 'toggle', label: 'Toggle Option 5', placeholder: 'teal',model: 'toggle6', required: false, color:'teal', value:'no' },
     { type: 'toggle', label: 'Toggle Option 6', placeholder: 'orange',model: 'toggle7', required: false, color:'orange', value:'no' },
     { type: 'toggle', label: 'Toggle Option 7', placeholder: 'default',model: 'toggle8', required: false, value:'no' },
+
+    // Smart Multi-Select Radio Example (Round Checkboxes)
+    {
+        type: 'radio', 
+        label: 'Freshmen Requirements (Multi-Select)', 
+        color: 'yellow',
+        options:[
+            { value:'Form 138', text:'Form 138', model: 'f138',  color:'red' },
+            { value:'Form 137', text:'Form 137', model: 'f137',  color:'green' },
+            { value:'PSA', text:'PSA', model: 'psa1', color: 'orange' },
+        ]
+    },
+
+    // Fixed Color Toggles Example
+    { type: 'toggle', label: 'HD', placeholder: 'HD', model: 'hd', required: false, color:'teal', value:1 },
+    { type: 'toggle', label: 'TOR(informative)', placeholder: 'TOR(informative)', model: 'tori', required: false, color:'orange', value:1 },
+    { type: 'toggle', label: 'TOR(official)', placeholder: 'TOR(official)', model: 'toro', required: false, color:'purple', value:1 },
 ]);
 </script>
 ```

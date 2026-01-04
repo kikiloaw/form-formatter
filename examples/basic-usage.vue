@@ -46,7 +46,11 @@ const formData = ref({
   notifications: false,
   description: '',
   birthDate: '',
-  documents: []
+  documents: [],
+  f138: true,
+  f137: false,
+  psa: false,
+  student_year: ''
 });
 
 const formFields = [
@@ -150,7 +154,6 @@ const formFields = [
     }
   ],
   
-  // File upload
   {
     type: 'file',
     label: 'Documents',
@@ -158,7 +161,20 @@ const formFields = [
     multiple: true,
     accept: '.pdf,.doc,.docx,.jpg,.png',
     placeholder: 'Upload your documents'
-  }
+  },
+   { type: 'checkbox-group', label: 'Student Year (Exclusive Array)', placeholder: 'default', model: 'student_year', color:'yellow', required: false,
+        options: [
+            { value: '1', text: 'Male' },
+            { value: '2', text: 'Female' }
+        ]
+    },
+  { type: 'checkbox-group', label: 'Freshmen (Separate Models)', placeholder: 'Form 138', model: 'f_group', required: false, color:'green', exclusive: true,
+    options:[
+        { model:'f138', text:'Form 138' },
+        { model:'f137', text:'Form 137' },
+        { model:'psa', text:'PSA' }
+    ]
+  },
 ];
 
 const handleRefsReady = (refs) => {
